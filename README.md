@@ -1,7 +1,7 @@
 # Group 06
-Land Cover Change
+**Land Cover Change**
 
-Description : 
+## Description : 
     The goal of the project is to visualize the Spatio-temporal changes of landsurface for two years.
 
 ## Add your files
