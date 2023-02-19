@@ -10,14 +10,14 @@ import streamlit as st
 from streamlit_folium import folium_static
 
 st.title("Land Cover Change")
-st.write("Enter the paths of two years to compare")
-st.sidebar.info('About:\n'
-                'This dashboard allows users to Select the specified path of dataset for the year 1 and year 2 from the local directory.\n'
-                ' This dashboard creates the \n'
-                '- Vegetation Change\n'
-                '- Built-up Change\n'
-                '- Waterbody Change\n'
-                '- Soil Adjusted Change for the corresponding dataset.\n')
+st.write("Select the specified path of dataset for the year 1 and year 2 from the local directory")
+st.sidebar.info("About:\n"
+                "This dashboard allows users to visualise the landcover changes of two different years from landsat 8 images\n"
+                " It shows \n"
+                "- Vegetation Change\n"
+                "- Built-up Change\n"
+                "- Waterbody Change\n"
+                "- Soil Adjusted Change for the corresponding dataset.\n")
 st.sidebar.info("""Authors
  - [Ram Kumar](mailto:rkumar.m@uni.muenster.de)
  - [Mohamed Shamsudeen](mailto:shamsudeen.m@uni-muenster.de)""")
