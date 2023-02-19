@@ -7,7 +7,13 @@ The goal of the project is to visualize the Spatio-temporal changes of landsurfa
 ## Dataset Download
 We used [Google Earth Engine](https://code.earthengine.google.com/) to collect the cloud free data of Landsat 8 (30m spatial resolution). You can find the Javascript code to download the dataset from GEE for Münster, Germany. Moreover you can also change your own area of interest to download the dataset.
 
-## 
+Folder sample Landsat files consists of the raster file for the year 2013 and 2022, which we have used in our project.
+
+## Requirements
+conda env create -f requirements.yml
+
+## To Run
+    ghjgvhbjk
 
 ## Authors
 -[Ram Kumar](ramkumar.m@uni-muenster.de)
