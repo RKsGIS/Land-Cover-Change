@@ -187,16 +187,11 @@ def main():
         # NDWI folium feature group
         W = create_map(cndwi, colored_Y1ndwi, colored_Y2ndwi, 'Water Change ', 'Year 1 NDWI', 'Year 2 NDWI')
         # store all in session state
-        if 'maps' not in session_state:
-            session_state.maps = {}
-        if 'V' not in session_state.maps:
-            session_state.maps['Vegetation change'] = V
-        if 'W' not in session_state.maps:
-            session_state.maps['Waterbody change'] = W
-        if 'S' not in session_state.maps:
-            session_state.maps['Soil moisture change'] = S
-        if 'B' not in session_state.maps:
-            session_state.maps['Builtup change'] = B
+        session_state.maps = {}
+        session_state.maps['Vegetation change'] = V
+        session_state.maps['Waterbody change'] = W
+        session_state.maps['Soil moisture change'] = S
+        session_state.maps['Builtup change'] = B
         subpage(session_state, colors_list)
 
 
