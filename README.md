@@ -9,12 +9,6 @@ We used [Google Earth Engine](https://code.earthengine.google.com/) to collect t
 
 ## 
 
-# Editing this README
-
-When you're ready to make this README your own, just edit this file and use the handy template below (or feel free to structure it however you want - this is just a starting point!). Thank you to [makeareadme.com](https://www.makeareadme.com/) for this template.
-
-## 
-
 ## Authors
 -[Ram Kumar](ramkumar.m@uni-muenster.de)
 -[Mohamed Shamsudeen](shamsudeen.m@uni-muenster.de)
