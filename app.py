@@ -3,8 +3,8 @@ import re
 import folium
 import matplotlib as plt
 import matplotlib.colors as colors
-import matplotlib.pyplot as plt
 import numpy.ma as ma
+import numpy as np
 import rioxarray
 import streamlit as st
 from streamlit_folium import folium_static
@@ -43,7 +43,6 @@ def main():
         bounds = data_array.rio.bounds()
         minx, miny, maxx, maxy = bounds
         location = [(miny + maxy) / 2, (minx + maxx) / 2]
-        # Reorder the bounds coordinates to (miny, minx][ maxy, maxx) format
         map_bounds = [[miny, minx], [maxy, maxx]]
         return location, map_bounds
 
@@ -57,7 +56,6 @@ def main():
         return ndwi
 
     def calculate_ndbi(xr_data):
-        # ndbi = (xr_data['6'] - xr_data['5'] / (xr_data['6'] + xr_data['5'])
         ndbi = (xr_data['6'] - xr_data['5']) / (xr_data['6'] + xr_data['5'])
         return ndbi
 
@@ -78,8 +76,7 @@ def main():
         # Remove the extra dimension from the array
         colored_data = colored_data.squeeze(axis=0)
         return colored_data
-        # to get location and bounds
-
+       
     # binary mask for changes
     def create_binary_mask(data, threshold):
         # Mask the invalid data
@@ -193,18 +190,18 @@ def main():
         if 'maps' not in session_state:
             session_state.maps = {}
         if 'V' not in session_state.maps:
-            session_state.maps['V'] = V
+            session_state.maps['Vegetation change'] = V
         if 'W' not in session_state.maps:
-            session_state.maps['W'] = W
+            session_state.maps['Waterbody change'] = W
         if 'S' not in session_state.maps:
-            session_state.maps['S'] = S
+            session_state.maps['Soil moisture change'] = S
         if 'B' not in session_state.maps:
-            session_state.maps['B'] = B
+            session_state.maps['Builtup change'] = B
         subpage(session_state, colors_list)
 
 
 def subpage(session_state, colors_list):
-    selection = st.selectbox('Select a map', ['V', 'W', 'S', 'B'])
+    selection = st.selectbox('Select a map', ['Vegetation change', 'Waterbody change', 'Soil moisture change', 'Builtup change'])
 
     folium_static(session_state.maps[selection])
 
@@ -214,15 +211,12 @@ def subpage(session_state, colors_list):
     fig, ax = plt.subplots()
     fig.set_size_inches(.01, .01)  # Adjust figure size
     for i, color in enumerate(colors_list):
-        x_pos = i - 0.5 if i == 0 else i + 0.5  # Adjust x-position of bars
+        x_pos = i - 0.5 if i == 0 else i + 0.5  
         ax.bar(x_pos, 0, color=color, label=labels[i])
     ax.axis('off')
     ax.legend(loc='center', ncol=2,
-              fontsize='small')  # Set the number of columns in the legend to 2 and adjust font size
-    # fig.set_facecolor('black')
-    # Render the legend and figure in Streamlit
-    st.set_option('deprecation.showPyplotGlobalUse', False)  # Disable warning about global pyplot use
-    st.pyplot(fig, dpi=500)  # Adjust dpi to make figure smaller
+              fontsize='small')  
+    st.pyplot(fig, dpi=500)  
 
 
 if __name__ == '__main__':
