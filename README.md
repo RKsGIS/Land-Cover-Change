@@ -15,5 +15,5 @@ The goal of the project is to visualize the Spatio-temporal changes of the lands
     streamlit run app.py
 
 ## Authors
-- [Ram Kumar](ramkumar.m@uni-muenster.de)
+- [Ram Kumar](mailto:ramkumar.m@uni-muenster.de)
 - [Mohamed Shamsudeen](shamsudeen.m@uni-muenster.de)
