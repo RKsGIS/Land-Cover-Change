@@ -16,4 +16,4 @@ The goal of the project is to visualize the Spatio-temporal changes of the lands
 
 ## Authors
 - [Ram Kumar](mailto:ramkumar.m@uni-muenster.de)
-- [Mohamed Shamsudeen](shamsudeen.m@uni-muenster.de)
+- [Mohamed Shamsudeen](mailto:shamsudeen.m@uni-muenster.de)
