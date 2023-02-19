@@ -13,7 +13,7 @@ Folder sample Landsat files consists of the raster file for the year 2013 and 20
 conda env create -f requirements.yml
 
 ## To Run
-    ghjgvhbjk
+    streamlit run app.py
 
 ## Authors
 -[Ram Kumar](ramkumar.m@uni-muenster.de)
