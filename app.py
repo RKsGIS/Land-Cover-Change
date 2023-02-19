@@ -9,7 +9,18 @@ import rioxarray
 import streamlit as st
 from streamlit_folium import folium_static
 
-
+st.title("Land Cover Change")
+st.write("Enter the paths of two years to compare")
+st.sidebar.info('About:\n'
+                'This dashboard allows users to Select the specified path of dataset for the year 1 and year 2 from the local directory.\n'
+                ' This dashboard creates the \n'
+                '- Vegetation Change\n'
+                '- Built-up Change\n'
+                '- Waterbody Change\n'
+                '- Soil Adjusted Change for the corresponding dataset.\n')
+st.sidebar.info("""Authors
+ - [Ram Kumar](mailto:rkumar.m@uni.muenster.de)
+ - [Mohamed Shamsudeen](mailto:shamsudeen.m@uni-muenster.de)""")
 # Add the input fields to the first column
 def main():
     # to open the bands having B in its name
@@ -201,15 +212,17 @@ def subpage(session_state, colors_list):
 
     # Create a custom legend
     fig, ax = plt.subplots()
-    fig.set_size_inches(.01, .01)
+    fig.set_size_inches(.01, .01)  # Adjust figure size
     for i, color in enumerate(colors_list):
-        x_pos = i - 0.1 if i == 0 else i + 0.1  # Adjust x-position of bars
+        x_pos = i - 0.5 if i == 0 else i + 0.5  # Adjust x-position of bars
         ax.bar(x_pos, 0, color=color, label=labels[i])
     ax.axis('off')
-    ax.legend(loc='center', ncol=2)  # Set the number of columns in the legend to 2
-
+    ax.legend(loc='center', ncol=2,
+              fontsize='small')  # Set the number of columns in the legend to 2 and adjust font size
+    # fig.set_facecolor('black')
     # Render the legend and figure in Streamlit
-    st.pyplot(fig)
+    st.set_option('deprecation.showPyplotGlobalUse', False)  # Disable warning about global pyplot use
+    st.pyplot(fig, dpi=500)  # Adjust dpi to make figure smaller
 
 
 if __name__ == '__main__':
