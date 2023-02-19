@@ -5,7 +5,7 @@
 The goal of the project is to visualize the Spatio-temporal changes of landsurface for two years. Currently, we have found the landsurface change for Münster, Germany for the year 2013 and 2022. We created an interactive web application using the Streamlit and Folium libraries. The application takes input paths for two directories, each containing seven raster image files representing different spectral bands of satellite imagery for two years. The user can select which vegetation index to calculate and visualize and can also adjust a threshold value for creating a binary mask. The NDVI (Normalized Difference Vegetation Index), NDWI (Normalized Difference Water Index), NDBI (Normalized Difference Built-up Index), and SAVI (Soil Adjusted Vegetation Index) are calculated using the specified spectral bands. The calculated vegetation index is then used to create a color-coded raster image, and the image is displayed on an interactive map using the Folium library. The color-coded image is also overlaid with a binary mask, which can be adjusted by the user using the threshold slider.
 
 ## Dataset Download
-We used [Google Earth Engine](https://code.earthengine.google.com/) to collect the cloud free data. You can also find the Javascript code to download the dataset from GEE. 
+We used [Google Earth Engine](https://code.earthengine.google.com/) to collect the cloud free data of Landsat 8 (30m spatial resolution). You can find the Javascript code to download the dataset from GEE for Münster, Germany. Moreover you can also change your own area of interest to download the dataset.
 
 ## 
 
