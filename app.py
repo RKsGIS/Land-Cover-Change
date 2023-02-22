@@ -1,7 +1,7 @@
 import os
 import re
 import folium
-import matplotlib as plt
+import matplotlib.pyplot as plt
 import matplotlib.colors as colors
 import numpy.ma as ma
 import numpy as np
