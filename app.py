@@ -1,7 +1,7 @@
 import os
 import re
 import folium
-import matplotlib as plt
+import matplotlib.pyplot as plt
 import matplotlib.colors as colors
 import numpy.ma as ma
 import numpy as np
@@ -13,12 +13,12 @@ st.title("Land Cover Change")
 st.write("Select the specified path of dataset for the year 1 and year 2 from the local directory")
 st.sidebar.info("About:\n"
                 "This dashboard allows users to visualise the landcover changes of two different years from landsat 8 images\n"
-                " It shows \n"
+                " It shows the following for the corresponding dataset \n"
                 "- Vegetation Change\n"
-                "- Built-up Change\n"
                 "- Waterbody Change\n"
-                "- Soil Adjusted Change for the corresponding dataset.\n")
-st.sidebar.info("""Authors
+                "- Soil Adjusted Change\n"
+                "- Built-up Change\n")
+st.sidebar.info("""**Authors**
  - [Ram Kumar](mailto:rkumar.m@uni.muenster.de)
  - [Mohamed Shamsudeen](mailto:shamsudeen.m@uni-muenster.de)""")
 # Add the input fields to the first column
@@ -190,13 +190,13 @@ def main():
         session_state.maps = {}
         session_state.maps['Vegetation change'] = V
         session_state.maps['Waterbody change'] = W
-        session_state.maps['Soil moisture change'] = S
+        session_state.maps['Soil Adjusted Change'] = S
         session_state.maps['Builtup change'] = B
         subpage(session_state, colors_list)
 
 
 def subpage(session_state, colors_list):
-    selection = st.selectbox('Select a map', ['Vegetation change', 'Waterbody change', 'Soil moisture change', 'Builtup change'])
+    selection = st.selectbox('Select a map', ['Vegetation change', 'Waterbody change', 'Soil Adjusted Change', 'Builtup change'])
 
     folium_static(session_state.maps[selection])
 
