@@ -1,10 +1,9 @@
 import os
 import re
 import folium
-import matplotlib.pyplot as plt
 import matplotlib.colors as colors
+import matplotlib.pyplot as plt
 import numpy.ma as ma
-import numpy as np
 import rioxarray
 import streamlit as st
 from streamlit_folium import folium_static
@@ -13,14 +12,16 @@ st.title("Land Cover Change")
 st.write("Select the specified path of dataset for the year 1 and year 2 from the local directory")
 st.sidebar.info("About:\n"
                 "This dashboard allows users to visualise the landcover changes of two different years from landsat 8 images\n"
-                " It shows the following for the corresponding dataset \n"
+                " It shows \n"
                 "- Vegetation Change\n"
+                "- Built-up Change\n"
                 "- Waterbody Change\n"
-                "- Soil Adjusted Change\n"
-                "- Built-up Change\n")
-st.sidebar.info("""**Authors**
+                "- Soil Adjusted Change for the corresponding dataset.\n")
+st.sidebar.info("""Authors
  - [Ram Kumar](mailto:rkumar.m@uni.muenster.de)
  - [Mohamed Shamsudeen](mailto:shamsudeen.m@uni-muenster.de)""")
+
+
 # Add the input fields to the first column
 def main():
     # to open the bands having B in its name
@@ -76,23 +77,20 @@ def main():
         # Remove the extra dimension from the array
         colored_data = colored_data.squeeze(axis=0)
         return colored_data
-       
-    # binary mask for changes
-    def create_binary_mask(data, threshold):
+
+    def create_masked_color_data(change, threshold, colors_list):
         # Mask the invalid data
-        masked_data = ma.masked_invalid(data)
+        masked_data = ma.masked_invalid(change)
         # Create a binary mask based on the threshold value
         mask = (masked_data > threshold).astype(float)
-        return mask
-
-    # create colormask to plot changes
-    def create_color_mask(mask, colors_list):
         # Set the colors for the two classes
         cmap = colors.ListedColormap(colors_list)
         # Create a color map for the binary mask
         bounds = [0, 0.5, 1]
         norm = colors.BoundaryNorm(bounds, cmap.N)
+        # Apply the color map to the mask
         masked_data_colors = cmap(norm(mask))
+        # Remove the first dimension if present
         masked_data_colors = masked_data_colors.squeeze(axis=0)
         return masked_data_colors
 
@@ -153,19 +151,15 @@ def main():
 
         # Compute NDVI change
         ndviChange = Y1ndvi - Y2ndvi
-        # Create a binary mask based on the threshold value
-        mask_ndvi = create_binary_mask(ndviChange, threshold)
         # Create a color map for the binary mask
-        cndvi = create_color_mask(mask_ndvi, colors_list)
+        cndvi  = create_masked_color_data(ndviChange, threshold, colors_list)
         # create Vegetataion change map
         V = create_map(cndvi, colored_Y1ndvi, colored_Y2ndvi, 'Vegetation Change ', 'Year 1 NDVI', 'Year 2 NDVI')
 
         # Compute NDBI change
         ndbi_change = Y1ndbi - Y2ndbi
-        # Create a binary mask based on the threshold value
-        mask_ndbi = create_binary_mask(ndbi_change, threshold)
         # Create a color map for the binary mask
-        Cndbi = create_color_mask(mask_ndbi, colors_list)
+        Cndbi = create_masked_color_data(ndbi_change, threshold, colors_list)
         # NDBI folium feature group
         B = create_map(Cndbi, colored_Y1ndbi, colored_Y2ndbi, 'Buildup Change ', 'Year 1 NDBI', 'Year 2 NDBI')
 
@@ -174,29 +168,28 @@ def main():
         # Create a binary mask based on the threshold value
         mask_savi = create_binary_mask(savi_Change, threshold)
         # Create a color map for the binary mask
-        Csavi = create_color_mask(mask_savi, colors_list)
+        Csavi = create_masked_color_data(savi_Change, threshold, colors_list)
         # SAVI folium feature group
         S = create_map(Csavi, colored_Y1savi, colored_Y2savi, 'Soil Change ', 'Year 1 SAVI', 'Year 2 SAVI')
 
         # Compute NDWI change
         ndwi_Change = Y1ndwi - Y2ndwi
-        # Create a binary mask based on the threshold value
-        mask_ndwi = create_binary_mask(ndwi_Change, threshold)
         # Create a color map for the binary mask
-        cndwi = create_color_mask(mask_ndwi, colors_list)
+        cndwi = create_masked_color_data(ndwi_Change, threshold, colors_list)
         # NDWI folium feature group
         W = create_map(cndwi, colored_Y1ndwi, colored_Y2ndwi, 'Water Change ', 'Year 1 NDWI', 'Year 2 NDWI')
         # store all in session state
         session_state.maps = {}
         session_state.maps['Vegetation change'] = V
         session_state.maps['Waterbody change'] = W
-        session_state.maps['Soil Adjusted Change'] = S
+        session_state.maps['Soil moisture change'] = S
         session_state.maps['Builtup change'] = B
         subpage(session_state, colors_list)
 
 
 def subpage(session_state, colors_list):
-    selection = st.selectbox('Select a map', ['Vegetation change', 'Waterbody change', 'Soil Adjusted Change', 'Builtup change'])
+    selection = st.selectbox('Select a map',
+                             ['Vegetation change', 'Waterbody change', 'Soil moisture change', 'Builtup change'])
 
     folium_static(session_state.maps[selection])
 
@@ -206,12 +199,12 @@ def subpage(session_state, colors_list):
     fig, ax = plt.subplots()
     fig.set_size_inches(.01, .01)  # Adjust figure size
     for i, color in enumerate(colors_list):
-        x_pos = i - 0.5 if i == 0 else i + 0.5  
+        x_pos = i - 0.5 if i == 0 else i + 0.5
         ax.bar(x_pos, 0, color=color, label=labels[i])
     ax.axis('off')
     ax.legend(loc='center', ncol=2,
-              fontsize='small')  
-    st.pyplot(fig, dpi=500)  
+              fontsize='small')
+    st.pyplot(fig, dpi=500)
 
 
 if __name__ == '__main__':
