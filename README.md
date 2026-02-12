@@ -1,19 +1,108 @@
-# Group 06
-## Land Cover Change
+# Land Cover Change Analysis
 
-## Description : 
-The goal of the project is to visualize the Spatio-temporal changes of the landsurface for two years. Currently, we have found the landsurface change for Münster, Germany for the years 2013 and 2022. We created an interactive web application using the Streamlit and Folium libraries. The application takes input paths for two directories, each containing raster image files representing different spectral bands of satellite imagery for two years. The user can select which vegetation index to calculate and visualize and can also adjust a threshold value for creating a binary mask. The NDVI (Normalized Difference Vegetation Index), NDWI (Normalized Difference Water Index), NDBI (Normalized Difference Built-up Index), and SAVI (Soil Adjusted Vegetation Index) are calculated using the specified spectral bands. The calculated vegetation index is then used to create a color-coded raster image, and the image is displayed on an interactive map using the Folium library. The color-coded image is also overlaid with a binary mask, which can be adjusted by the user using the threshold slider.
+An interactive Streamlit dashboard for analyzing land cover change using Landsat 8 satellite imagery.
 
-## Dataset
-- You can use Landsat data for any area of interest in this dashboard.
-- We used [Google Earth Engine](https://code.earthengine.google.com/) to collect the cloud-free data of Landsat 8 (30m spatial resolution). You can find the Javascript code to download the dataset from GEE for Münster, Germany.
-- We used 2013 and 2022 Landsat 8 data which is in "sample Landsat files" directory
-## Requirements
+
+---
+
+## Overview
+
+This application calculates and visualizes four environmental indices to detect changes in:
+
+- Vegetation
+- Water bodies
+- Urban areas
+- Soil conditions
+
+Case Study: Münster, Germany (2013–2022)
+
+---
+
+## Features
+
+- Multi-temporal comparison between two years
+- Interactive map visualization (Folium)
+- Adjustable threshold slider
+- Supports four vegetation indices:
+  - NDVI – Vegetation health
+  - NDWI – Water detection
+  - NDBI – Built-up area detection
+  - SAVI – Soil-adjusted vegetation
+
+---
+
+## Installation
+
+### Prerequisites
+
+- Python 3.8+
+- Anaconda or Miniconda (recommended)
+
+### Setup
+
+    git clone https://github.com/RKsGIS/Land-Cover-Change.git
+    cd Land-Cover-Change
     conda env create -f requirements.yml
+    conda activate land-cover-change
 
-## To Run
+### Run the Application
+
     streamlit run app.py
 
-## Authors
-- [Ram Kumar](mailto:ramkumar.m@uni-muenster.de)
+Open in browser:
+http://localhost:8501
+
+---
+
+## Workflow
+
+1. Launch the dashboard
+2. Select folder for Year 1 Landsat bands (B1–B7 .tif)
+3. Select folder for Year 2 Landsat bands
+4. Choose a vegetation index
+5. Adjust threshold
+6. Explore results on the map
+
+---
+
+## Dataset
+
+- Source: Google Earth Engine
+- Satellite: Landsat 8 Surface Reflectance
+- Resolution: 30m
+- Required Bands: B1–B7
+
+Use the provided `DataDownload_GEE.js` script to download imagery.
+
+---
+
+## Tech Stack
+
+- Streamlit
+- Folium
+- rioxarray
+- NumPy
+- Matplotlib
+
+---
+
+## Project Structure
+
+Land-Cover-Change/
+- app.py
+- DataDownload_GEE.js
+- requirements.yml
+- sample Landsat files/
+- README.md
+
+---
+
+
+
+
+## Project Authors
+- [Ram Kumar Muthusamy](mailto:ramkumar.m@uni-muenster.de)
 - [Mohamed Shamsudeen](mailto:shamsudeen.m@uni-muenster.de)
+
+
+This project was developed as part of a Spatio-Temporal Analysis course at the University of Münster.
