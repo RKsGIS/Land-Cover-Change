@@ -101,8 +101,8 @@ Land-Cover-Change/
 
 
 ## Project Authors
-- [Ram Kumar Muthusamy](mailto:ramkumar.m@uni-muenster.de)
-- [Mohamed Shamsudeen](mailto:shamsudeen.m@uni-muenster.de)
+- Ram Kumar Muthusamy
+- Mohamed Shamsudeen
 
 
 This project was developed as part of a Spatio-Temporal Analysis course at the University of Münster.
